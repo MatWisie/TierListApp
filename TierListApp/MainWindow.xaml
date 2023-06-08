@@ -30,8 +30,10 @@
             <!--<ListView Grid.Row="1"></ListView>-->
             
         </Grid>
-
-        <ContentControl Content="{Binding currentView}" Grid.Column="1"/>
+        <ScrollViewer Grid.Column="1">
+            <ContentControl Content="{Binding currentView}" />
+        </ScrollViewer>
+        
 
     </Grid>
 </Window>
