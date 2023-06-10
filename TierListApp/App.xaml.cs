@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,8 +7,11 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using TierListApp.Data;
 using TierListApp.Interfaces;
 using TierListApp.Navigation;
+using TierListApp.Repository;
+using TierListApp.Service;
 using TierListApp.ViewModels;
 
 namespace TierListApp
@@ -30,7 +34,14 @@ namespace TierListApp
             var services = new ServiceCollection();
 
             services.AddSingleton<INavigationStore, NavigationStore>();
+            services.AddTransient<ITierListRepository, TierListRepository>();
+            services.AddTransient<ITierRepository, TierRepository>();
+            services.AddTransient<ITierService, TierService>();
+            services.AddDbContext<TierDbContext>();
+
             services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<AddTierListViewModel>();
+            
 
 
             return services.BuildServiceProvider();

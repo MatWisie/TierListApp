@@ -40,7 +40,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Content="Create" FontSize="25" HorizontalAlignment="Left" Background="LightGreen" Margin="10"/>
+            <Button Content="Create" FontSize="25" HorizontalAlignment="Left" Background="LightGreen" Margin="10" Command="{Binding CreateTierListCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

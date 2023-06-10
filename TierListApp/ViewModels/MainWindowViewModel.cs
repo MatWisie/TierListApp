@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using TierListApp.Interfaces;
 using TierListApp.Navigation;
 
@@ -17,20 +18,20 @@ namespace TierListApp.ViewModels
         public MainWindowViewModel(INavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            //_navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
-        /*
+        
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(currentView));
         }
-        */
+        
 
         [RelayCommand]
         public void GoToAdd()
         {
-            currentView = new AddTierListViewModel();
+            currentView = App.Current.Services.GetService<AddTierListViewModel>();
         }
 
         public ObservableObject currentView
