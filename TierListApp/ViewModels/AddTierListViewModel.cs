@@ -51,6 +51,7 @@ namespace TierListApp.ViewModels
 
             List<TierDTO> tmpListOfTiers = new List<TierDTO>(listOfTiers);
             _tierService.CreateTierList(tmpTierList, tmpListOfTiers);
+            _navigationStore.ReloadTierLists();
 
             _navigationStore.CurrentViewModel = App.Current.Services.GetService<AddTierListViewModel>();
         }

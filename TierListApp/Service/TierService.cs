@@ -41,5 +41,21 @@ namespace TierListApp.Service
             }
             _tierRepository.AddTiers(tmpTiers);
         }
+        
+        public List<TierListDTO> GetTierLists()
+        {
+            var tierLists = _tierListRepository.GetTierLists();
+            List<TierListDTO> tmpListOfTiers = new List<TierListDTO>();
+            foreach (var tierList in tierLists)
+            {
+                TierListDTO tmpTierListDTO = new TierListDTO()
+                {
+                    Name = tierList.Name,
+                    CreatedDate = tierList.CreatedDate
+                };
+                tmpListOfTiers.Add(tmpTierListDTO);
+            }
+            return tmpListOfTiers;
+        }
     }
 }

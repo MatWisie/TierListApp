@@ -23,5 +23,10 @@ namespace TierListApp.Repository
             _context.SaveChanges();
             return tierList.Id;
         }
+
+        public List<TierList> GetTierLists()
+        {
+            return _context.TierLists.ToList();
+        }
     }
 }

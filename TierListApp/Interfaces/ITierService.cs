@@ -6,5 +6,6 @@ namespace TierListApp.Interfaces
     public interface ITierService
     {
         void CreateTierList(TierListDTO tierListDTO, List<TierDTO> tiersDTO);
+        List<TierListDTO> GetTierLists();
     }
 }

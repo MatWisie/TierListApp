@@ -30,6 +30,17 @@ namespace TierListApp.Navigation
         }
 
         public event Action CurrentViewModelChanged;
+
+
+
+        public void ReloadTierLists()
+        {
+            CurrentTierListsChanged?.Invoke();
+        }
+
+        public event Action CurrentTierListsChanged;
+
+
     }
 }
 

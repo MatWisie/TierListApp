@@ -8,6 +8,10 @@ namespace TierListApp.Interfaces
         ObservableObject CurrentViewModel { get; set; }
 
         event Action CurrentViewModelChanged;
-        
+
+        void ReloadTierLists();
+        event Action CurrentTierListsChanged;
+
+
     }
 }
