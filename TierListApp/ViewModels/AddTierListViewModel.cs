@@ -15,9 +15,9 @@ namespace TierListApp.ViewModels
 {
     partial class AddTierListViewModel : ObservableObject
     {
-        private readonly ITierService _tierService;
+        private readonly ITierListService _tierService;
         private readonly INavigationStore _navigationStore;
-        public AddTierListViewModel(ITierService tierService, INavigationStore navigationStore)
+        public AddTierListViewModel(ITierListService tierService, INavigationStore navigationStore)
         {
             _tierService = tierService;
             _navigationStore = navigationStore;

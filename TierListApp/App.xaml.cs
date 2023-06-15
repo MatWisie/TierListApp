@@ -36,11 +36,12 @@ namespace TierListApp
             services.AddSingleton<INavigationStore, NavigationStore>();
             services.AddTransient<ITierListRepository, TierListRepository>();
             services.AddTransient<ITierRepository, TierRepository>();
-            services.AddTransient<ITierService, TierService>();
+            services.AddTransient<ITierListService, TierListService>();
             services.AddDbContext<TierDbContext>();
 
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<AddTierListViewModel>();
+            services.AddTransient<TierListViewModel>();
             
 
 

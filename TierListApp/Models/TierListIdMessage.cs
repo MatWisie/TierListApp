@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TierListApp.DTO
+namespace TierListApp.Models
 {
-    public class TierListDTO
+    public class TierListIdMessage
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public TierListIdMessage(int id)
+        {
+            Id = id;
+        }
     }
 }

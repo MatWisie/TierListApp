@@ -13,6 +13,9 @@
             <DataTemplate DataType="{x:Type vms:AddTierListViewModel}">
                 <views:AddTierListView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:TierListViewModel}">
+                <views:TierListView/>
+            </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -27,10 +30,13 @@
                 <Label Content="Tier Lists" FontSize="20" Height="36"/>
                 <Button Content="+" Width="40" FontSize="20" Background="GreenYellow" Command="{Binding GoToAddCommand}"/>
             </StackPanel>
-            <ListView Grid.Row="1" ItemsSource="{Binding TierLists}" HorizontalContentAlignment="Stretch">
-                <ListView.ItemTemplate>
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding TierLists}" HorizontalContentAlignment="Stretch" x:Name="TierLists">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid TextElement.FontSize="15">
+                        <Grid TextElement.FontSize="15" Margin="5">
+                            <Grid.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=TierLists, Path=DataContext.GoToTierListCommand}" CommandParameter="{Binding Id}"/>
+                            </Grid.InputBindings>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -39,8 +45,8 @@
                             <Label Content="{Binding CreatedDate}" Grid.Column="1" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
         </Grid>
         <ScrollViewer Grid.Column="1">

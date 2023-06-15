@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace TierListApp.Repository
         public List<TierList> GetTierLists()
         {
             return _context.TierLists.ToList();
+        }
+
+        public TierList? GetTierListInclude(int id)
+        {
+            return _context.TierLists.Where(e => e.Id == id).Include(e => e.Tiers).FirstOrDefault();
         }
     }
 }

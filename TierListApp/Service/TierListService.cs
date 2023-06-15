@@ -9,12 +9,12 @@ using TierListApp.Models;
 
 namespace TierListApp.Service
 {
-    public class TierService : ITierService
+    public class TierListService : ITierListService
     {
         private readonly ITierListRepository _tierListRepository;
         private readonly ITierRepository _tierRepository;
 
-        public TierService(ITierListRepository tierListRepository, ITierRepository tierRepository)
+        public TierListService(ITierListRepository tierListRepository, ITierRepository tierRepository)
         {
             _tierListRepository = tierListRepository;
             _tierRepository = tierRepository;
@@ -50,12 +50,18 @@ namespace TierListApp.Service
             {
                 TierListDTO tmpTierListDTO = new TierListDTO()
                 {
+                    Id = tierList.Id,
                     Name = tierList.Name,
                     CreatedDate = tierList.CreatedDate
                 };
                 tmpListOfTiers.Add(tmpTierListDTO);
             }
             return tmpListOfTiers;
+        }
+
+        public TierList? GetTierListInclude(int tierListId)
+        {
+            return _tierListRepository.GetTierListInclude(tierListId);
         }
     }
 }

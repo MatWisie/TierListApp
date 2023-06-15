@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using TierListApp.DTO;
 using TierListApp.Interfaces;
+using TierListApp.Models;
 using TierListApp.Navigation;
 
 namespace TierListApp.ViewModels
@@ -16,9 +18,9 @@ namespace TierListApp.ViewModels
     partial class MainWindowViewModel : ObservableObject
     {
         private readonly INavigationStore _navigationStore;
-        private readonly ITierService _tierService;
+        private readonly ITierListService _tierService;
 
-        public MainWindowViewModel(INavigationStore navigationStore, ITierService tierService)
+        public MainWindowViewModel(INavigationStore navigationStore, ITierListService tierService)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
@@ -46,6 +48,14 @@ namespace TierListApp.ViewModels
         public void GoToAdd()
         {
             currentView = App.Current.Services.GetService<AddTierListViewModel>();
+        }
+
+        [RelayCommand]
+        public void GoToTierList(int tierListId)
+        {
+            //int tierListId = Int32.Parse(tierListIdParameter);
+            currentView = App.Current.Services.GetService<TierListViewModel>();
+            WeakReferenceMessenger.Default.Send(new TierListIdMessage(tierListId));
         }
 
         public ObservableObject currentView

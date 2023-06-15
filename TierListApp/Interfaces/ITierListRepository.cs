@@ -7,5 +7,6 @@ namespace TierListApp.Interfaces
     {
         int AddTierList(TierList tierList);
         List<TierList> GetTierLists();
+        TierList? GetTierListInclude(int id);
     }
 }
