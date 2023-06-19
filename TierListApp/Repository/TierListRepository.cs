@@ -32,7 +32,7 @@ namespace TierListApp.Repository
 
         public TierList? GetTierListInclude(int id)
         {
-            return _context.TierLists.Where(e => e.Id == id).Include(e => e.Tiers).FirstOrDefault();
+            return _context.TierLists.Where(e => e.Id == id).Include(e => e.Tiers).ThenInclude(e => e.TierItems).FirstOrDefault();
         }
     }
 }

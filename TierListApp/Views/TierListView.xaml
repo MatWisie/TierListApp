@@ -13,24 +13,88 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding TierListName}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Tiers}" HorizontalContentAlignment="Stretch" x:Name="TiersControl">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="2">
-                        <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="{Binding Name}" FontSize="30" Background="{Binding TierColor}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <Rectangle Grid.Column="1" Fill="Black"/>
-                    </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Button Content="Save" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Height="50" Background="ForestGreen"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <ItemsControl ItemsSource="{Binding Tiers}" HorizontalContentAlignment="Stretch" x:Name="TiersControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="2">
+                            <Border.InputBindings>
+                                <MouseBinding Gesture="LeftClick" Command="{Binding ElementName=TiersControl, Path=DataContext.PlaceItemCommand}" CommandParameter="{Binding}"/>
+                            </Border.InputBindings>
+                            <Grid Background="Black">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="{Binding Name}" FontSize="40" Background="{Binding TierColor}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                <ItemsControl Grid.Column="1" ItemsSource="{Binding TierItems, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Image Source="{Binding Source}" Width="100" Height="100">
+                                                    <Image.InputBindings>
+                                                        <MouseBinding Gesture="LeftClick" Command="{Binding ElementName=TiersControl, Path=DataContext.ChangeSelectedItemCommand}" CommandParameter="{Binding}"/>
+                                                    </Image.InputBindings>
+                                                </Image>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
+                <TextBox Grid.Row="1" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="LightGray"/>
+            </Grid>
+        </Grid>
+
         <Border Grid.Row="2" BorderBrush="DarkGray" BorderThickness="3">
-            <Rectangle Fill="Black"/>
+            <Border.InputBindings>
+                <MouseBinding Gesture="LeftCLick" Command="{Binding PlaceItemCommand}"/>
+            </Border.InputBindings>
+            <Grid Background="Black">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Content="+" Background="DarkGreen" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" Width="30" Command="{Binding AddItemCommand}"/>
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding TierItems}" HorizontalContentAlignment="Stretch" x:Name="UnassignedTierItems">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="{Binding Source}" Width="100" Height="100">
+                                    <Image.InputBindings>
+                                        <MouseBinding Gesture="LeftClick" Command="{Binding ElementName=UnassignedTierItems, Path=DataContext.ChangeSelectedItemCommand}" CommandParameter="{Binding}"/>
+                                    </Image.InputBindings>
+                                </Image>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

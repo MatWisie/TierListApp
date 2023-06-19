@@ -15,5 +15,6 @@ namespace TierListApp.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public ICollection<Tier> Tiers { get; set; }
+        public ICollection<TierItem> TierItems { get; set; }
     }
 }

@@ -53,7 +53,6 @@ namespace TierListApp.ViewModels
         [RelayCommand]
         public void GoToTierList(int tierListId)
         {
-            //int tierListId = Int32.Parse(tierListIdParameter);
             currentView = App.Current.Services.GetService<TierListViewModel>();
             WeakReferenceMessenger.Default.Send(new TierListIdMessage(tierListId));
         }
