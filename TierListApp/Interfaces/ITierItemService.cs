@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TierListApp.Models;
 
 namespace TierListApp.Interfaces
@@ -7,5 +8,7 @@ namespace TierListApp.Interfaces
     {
         void ChangeItemPlace(Tier? tier, TierItem SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems);
         string? ChooseItem();
+        void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems);
+        List<TierItem> GetNotAssignedItems(int tierListId);
     }
 }

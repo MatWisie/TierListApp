@@ -12,6 +12,11 @@ namespace TierListApp.Service
 {
     public class TierItemService : ITierItemService
     {
+        private readonly ITierItemRepository _tierItemRepository;
+        public TierItemService(ITierItemRepository tierItemRepository)
+        {
+            _tierItemRepository = tierItemRepository;
+        }
         public string? ChooseItem()
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
@@ -25,20 +30,25 @@ namespace TierListApp.Service
             return null;
         }
 
+        public List<TierItem> GetNotAssignedItems(int tierListId)
+        {
+            return _tierItemRepository.GetNotAssignedItems(tierListId);
+        }
+
         public void ChangeItemPlace(Tier? tier, TierItem SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems)
         {
             if (tier == null)
             {
                 Tiers.Where(e => e.Id == SelectedItem.TierId).FirstOrDefault().TierItems.Remove(SelectedItem);
-                SelectedItem.TierId = 0;
+                SelectedItem.TierId = null;
                 TierItems.Add(SelectedItem);
             }
             else
             {
 
-                    if (SelectedItem.TierId == 0)
+                    if (SelectedItem.TierId == null)
                     {
-                        TierItems.RemoveAt(SelectedItem.Id);
+                        TierItems.Remove(SelectedItem);
                     }
                     else
                     {
@@ -46,11 +56,31 @@ namespace TierListApp.Service
                     }
                     SelectedItem.TierId = tier.Id;
                     Tiers.Where(e => e.Id == tier.Id).FirstOrDefault().TierItems.Add(SelectedItem);
-
-                    //tier.TierItems.Add(SelectedItem);
-                    //Tiers.Where(e => e.Id == 1).FirstOrDefault().TierItems.Add(new TierItem() { Id = 1, Note = "blabla", Source = "C:\\Users\\Mateu\\Downloads\\929164_grafika-ewoluuje-ale-do-tylu.jpg", TierId = 1, TierListId = 1 });
                 
             }
+        }
+        public void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems)
+        {
+            List<TierItem> tmpTierItems = new List<TierItem>();
+            foreach (var tier in Tiers)
+            {
+                foreach (var tieritem in tier.TierItems)
+                {
+                    tmpTierItems.Add(tieritem);
+                }
+            }
+            foreach (var tierItem in TierItems)
+            {
+                tmpTierItems.Add(tierItem);
+            }
+
+            List<TierItem> tierItemsDB = _tierItemRepository.GetTierItemsByTierList(Tiers.First().TierListId);
+            for(int i = 0; i < tmpTierItems.Count; i++)
+            {
+                _tierItemRepository.UpdateTierItem(tmpTierItems[i]);
+                _tierItemRepository.SaveChanges();
+            }
+            
         }
     }
 }

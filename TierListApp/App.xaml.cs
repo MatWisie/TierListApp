@@ -38,6 +38,7 @@ namespace TierListApp
             services.AddTransient<ITierRepository, TierRepository>();
             services.AddTransient<ITierListService, TierListService>();
             services.AddTransient<ITierItemService, TierItemService>();
+            services.AddTransient<ITierItemRepository, TierItemRepository>();
             services.AddDbContext<TierDbContext>();
 
             services.AddTransient<MainWindowViewModel>();
