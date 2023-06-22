@@ -59,7 +59,28 @@ namespace TierListApp.Service
                 
             }
         }
-        public void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems)
+
+        public void DeleteItem(TierItem? SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems, List<TierItem> ItemsToDelete)
+        {
+            if(SelectedItem != null)
+            {
+                if (SelectedItem.TierId == null)
+                {
+                    TierItems.Remove(SelectedItem);
+                }
+                else
+                {
+                    Tiers.Where(e => e.Id == SelectedItem.TierId).FirstOrDefault().TierItems.Remove(SelectedItem);
+                }
+                if(SelectedItem.Id != 0)
+                {
+                    ItemsToDelete.Add(SelectedItem);
+                }
+                SelectedItem = null;
+            }
+        }
+
+        public void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems, List<TierItem> ItemsToDelete)
         {
             List<TierItem> tmpTierItems = new List<TierItem>();
             foreach (var tier in Tiers)
@@ -74,13 +95,15 @@ namespace TierListApp.Service
                 tmpTierItems.Add(tierItem);
             }
 
+            _tierItemRepository.RemoveItems(ItemsToDelete);
+            ItemsToDelete.Clear();
+
             List<TierItem> tierItemsDB = _tierItemRepository.GetTierItemsByTierList(Tiers.First().TierListId);
             for(int i = 0; i < tmpTierItems.Count; i++)
             {
                 _tierItemRepository.UpdateTierItem(tmpTierItems[i]);
-                _tierItemRepository.SaveChanges();
             }
-            
+            _tierItemRepository.SaveChanges();
         }
     }
 }

@@ -8,7 +8,8 @@ namespace TierListApp.Interfaces
     {
         void ChangeItemPlace(Tier? tier, TierItem SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems);
         string? ChooseItem();
-        void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems);
+        void SaveTierItems(ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems, List<TierItem> ItemsToDelete);
         List<TierItem> GetNotAssignedItems(int tierListId);
+        void DeleteItem(TierItem? SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems, List<TierItem> ItemsToDelete);
     }
 }

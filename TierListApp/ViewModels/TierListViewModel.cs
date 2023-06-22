@@ -38,6 +38,8 @@ namespace TierListApp.ViewModels
         [ObservableProperty]
         private TierItem? selectedItem;
 
+        private List<TierItem> itemsToDelete = new List<TierItem>();
+
         [RelayCommand]
         private void AddItem()
         {
@@ -64,20 +66,32 @@ namespace TierListApp.ViewModels
         [RelayCommand]
         private void SaveTierItems()
         {
-            _tierItemService.SaveTierItems(Tiers, TierItems);
+            _tierItemService.SaveTierItems(Tiers, TierItems, itemsToDelete);
+            SelectedItem = null;
+            ReloadView(TierListId);
         }
 
-
-        public void Receive(TierListIdMessage message)
+        [RelayCommand]
+        private void DeleteItem()
         {
-            TierListId = message.Id;
-            TierList? tierList = _tierListService.GetTierListInclude(message.Id);
-            if(tierList != null)
+            _tierItemService.DeleteItem(SelectedItem, Tiers, TierItems, itemsToDelete);
+        }
+
+        private void ReloadView(int tierListId)
+        {
+            TierListId = tierListId;
+            TierList? tierList = _tierListService.GetTierListInclude(tierListId);
+            if (tierList != null)
             {
                 TierListName = tierList.Name;
                 Tiers = new ObservableCollection<Tier>(tierList.Tiers);
-                TierItems = new ObservableCollection<TierItem>(_tierItemService.GetNotAssignedItems(message.Id));
+                TierItems = new ObservableCollection<TierItem>(_tierItemService.GetNotAssignedItems(tierListId));
             }
+        }
+
+        public void Receive(TierListIdMessage message)
+        {
+            ReloadView(message.Id);
         }
     }
 }

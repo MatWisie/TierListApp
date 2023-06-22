@@ -58,11 +58,13 @@
             </ItemsControl>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <Image Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
-                <TextBox Grid.Row="1" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="LightGray"/>
+                <Button Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" FontSize="20" Command="{Binding DeleteItemCommand}"/>
+                <Image Grid.Row="1" Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
+                <TextBox Grid.Row="2" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="LightGray"/>
             </Grid>
         </Grid>
 

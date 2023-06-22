@@ -32,6 +32,11 @@ namespace TierListApp.Repository
             return _context.TierItems.Where(e => e.TierListId == tierListId && e.TierId == null).ToList();
         }
 
+        public void RemoveItems(List<TierItem> tierItems)
+        {
+            _context.TierItems.RemoveRange(tierItems);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

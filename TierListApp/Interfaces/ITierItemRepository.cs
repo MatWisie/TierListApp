@@ -8,6 +8,7 @@ namespace TierListApp.Interfaces
         List<TierItem> GetTierItemsByTierList(int tierListId);
         void UpdateTierItem(TierItem tierItem);
         List<TierItem> GetNotAssignedItems(int tierListId);
+        void RemoveItems(List<TierItem> tierItems);
         void SaveChanges();
     }
 }
