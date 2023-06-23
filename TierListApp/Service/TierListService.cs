@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TierListApp.DTO;
 using TierListApp.Interfaces;
 using TierListApp.Models;
@@ -42,26 +43,24 @@ namespace TierListApp.Service
             _tierRepository.AddTiers(tmpTiers);
         }
         
-        public List<TierListDTO> GetTierLists()
+        public List<TierList> GetTierLists()
         {
-            var tierLists = _tierListRepository.GetTierLists();
-            List<TierListDTO> tmpListOfTiers = new List<TierListDTO>();
-            foreach (var tierList in tierLists)
-            {
-                TierListDTO tmpTierListDTO = new TierListDTO()
-                {
-                    Id = tierList.Id,
-                    Name = tierList.Name,
-                    CreatedDate = tierList.CreatedDate
-                };
-                tmpListOfTiers.Add(tmpTierListDTO);
-            }
-            return tmpListOfTiers;
+            return _tierListRepository.GetTierLists();
         }
 
         public TierList? GetTierListInclude(int tierListId)
         {
             return _tierListRepository.GetTierListInclude(tierListId);
+        }
+
+        public void DeleteTierList(TierList tierList)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if(messageBoxResult == MessageBoxResult.Yes)
+            {
+                _tierListRepository.DeleteTierList(tierList);
+                _tierListRepository.SaveChanges();
+            }
         }
     }
 }

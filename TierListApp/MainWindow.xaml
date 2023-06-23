@@ -40,9 +40,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{Binding Name}" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
                             <Label Content="{Binding CreatedDate}" Grid.Column="1" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                            <Button Background="Red" Content="D" Grid.Column="2" Command="{Binding ElementName=TierLists, Path=DataContext.DeleteTierListCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

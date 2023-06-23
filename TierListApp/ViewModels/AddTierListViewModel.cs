@@ -24,6 +24,7 @@ namespace TierListApp.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CreateTierListCommand))]
         private string tierListName = "";
 
         [ObservableProperty]
@@ -37,11 +38,11 @@ namespace TierListApp.ViewModels
             {
                 Name = "S",
             };
-
             ListOfTiers.Add(tmpTier);
+            CreateTierListCommand.NotifyCanExecuteChanged();
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanSaveTierList))]
         public void CreateTierList()
         {
             TierListDTO tmpTierList = new TierListDTO
@@ -54,6 +55,15 @@ namespace TierListApp.ViewModels
             _navigationStore.ReloadTierLists();
 
             _navigationStore.CurrentViewModel = App.Current.Services.GetService<AddTierListViewModel>();
+        }
+
+        private bool CanSaveTierList()
+        {
+            if(TierListName != "" && ListOfTiers.Count > 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

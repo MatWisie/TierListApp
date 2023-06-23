@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TierListApp.Interfaces;
 using TierListApp.Models;
 
@@ -62,21 +63,26 @@ namespace TierListApp.Service
 
         public void DeleteItem(TierItem? SelectedItem, ObservableCollection<Tier> Tiers, ObservableCollection<TierItem> TierItems, List<TierItem> ItemsToDelete)
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
-                if (SelectedItem.TierId == null)
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    TierItems.Remove(SelectedItem);
+                    if (SelectedItem.TierId == null)
+                    {
+                        TierItems.Remove(SelectedItem);
+                    }
+                    else
+                    {
+                        Tiers.Where(e => e.Id == SelectedItem.TierId).FirstOrDefault().TierItems.Remove(SelectedItem);
+                    }
+                    if (SelectedItem.Id != 0)
+                    {
+                        ItemsToDelete.Add(SelectedItem);
+                    }
+                    SelectedItem = null;
                 }
-                else
-                {
-                    Tiers.Where(e => e.Id == SelectedItem.TierId).FirstOrDefault().TierItems.Remove(SelectedItem);
-                }
-                if(SelectedItem.Id != 0)
-                {
-                    ItemsToDelete.Add(SelectedItem);
-                }
-                SelectedItem = null;
             }
         }
 
