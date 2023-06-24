@@ -18,15 +18,20 @@ namespace TierListApp.Service
         {
             _tierItemRepository = tierItemRepository;
         }
-        public string? ChooseItem()
+        public List<string>? ChooseItem()
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.Multiselect = false;
+            OpenFile.Multiselect = true;
             OpenFile.Title = "Select image";
             OpenFile.Filter = "Select image| *.jpeg; *.jpg;*.png;";
             if (OpenFile.ShowDialog() == true)
             {
-                return OpenFile.FileName;
+                List<string> files = new List<string>();
+                foreach(var file in OpenFile.FileNames)
+                {
+                    files.Add(file);
+                }
+                return files;
             }
             return null;
         }

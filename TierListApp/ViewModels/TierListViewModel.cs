@@ -43,10 +43,13 @@ namespace TierListApp.ViewModels
         [RelayCommand]
         private void AddItem()
         {
-            string? path = _tierItemService.ChooseItem();
-            if(path != null)
+            List<string>? paths = _tierItemService.ChooseItem();
+            if(paths != null)
             {
-                TierItems.Add(new TierItem() { Note = "", Source = path, TierId = null, TierListId = TierListId });
+                foreach(var path in paths)
+                {
+                    TierItems.Add(new TierItem() { Note = "", Source = path, TierId = null, TierListId = TierListId });
+                }
             }
         }
 
