@@ -34,5 +34,14 @@ namespace TierListApp.Repository
         {
             return _context.TierLists.Where(e => e.Id == id).Include(e => e.Tiers).ThenInclude(e => e.TierItems).FirstOrDefault();
         }
+
+        public void DeleteTierList(TierList tierList)
+        {
+            _context.TierLists.Remove(tierList);
+        }
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

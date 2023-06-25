@@ -10,6 +10,6 @@ namespace TierListApp.DTO
     {
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public string TierColor { get; set; }
+        public string TierColor { get; set; } = "#fc0303";
     }
 }

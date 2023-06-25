@@ -16,7 +16,7 @@
         <Label Content="Create new tier list" VerticalAlignment="Center" FontSize="25"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Name your tier list" VerticalAlignment="Center" FontSize="20"/>
-            <TextBox Text="{Binding TierListName, Mode=TwoWay}" Width="400" Margin="5"/>
+            <TextBox Text="{Binding TierListName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="5"/>
         </StackPanel>
         <StackPanel Grid.Row="2">
             <StackPanel Orientation="Horizontal">

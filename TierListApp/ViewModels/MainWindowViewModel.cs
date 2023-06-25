@@ -18,20 +18,20 @@ namespace TierListApp.ViewModels
     partial class MainWindowViewModel : ObservableObject
     {
         private readonly INavigationStore _navigationStore;
-        private readonly ITierListService _tierService;
+        private readonly ITierListService _tierListService;
 
         public MainWindowViewModel(INavigationStore navigationStore, ITierListService tierService)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            _tierService = tierService;
-            tierLists = new ObservableCollection<TierListDTO>(_tierService.GetTierLists());
+            _tierListService = tierService;
+            tierLists = new ObservableCollection<TierList>(_tierListService.GetTierLists());
             _navigationStore.CurrentTierListsChanged += ReloadListOfTiers;
         }
 
 
         [ObservableProperty]
-        private ObservableCollection<TierListDTO> tierLists;
+        private ObservableCollection<TierList> tierLists;
 
 
         private void OnCurrentViewModelChanged()
@@ -41,7 +41,7 @@ namespace TierListApp.ViewModels
 
         private void ReloadListOfTiers()
         {
-            TierLists = new ObservableCollection<TierListDTO>(_tierService.GetTierLists());
+            TierLists = new ObservableCollection<TierList>(_tierListService.GetTierLists());
         }
 
         [RelayCommand]
@@ -57,7 +57,7 @@ namespace TierListApp.ViewModels
             WeakReferenceMessenger.Default.Send(new TierListIdMessage(tierListId));
         }
 
-        public ObservableObject currentView
+        public ObservableObject? currentView
         {
             get
             {
@@ -68,6 +68,13 @@ namespace TierListApp.ViewModels
                 _navigationStore.CurrentViewModel = value;
                 OnPropertyChanged(nameof(currentView));
             }
+        }
+        [RelayCommand]
+        private void DeleteTierList(TierList tierList)
+        {
+            _tierListService.DeleteTierList(tierList);
+            TierLists.Remove(tierList);
+            currentView = null;
         }
     }
 }

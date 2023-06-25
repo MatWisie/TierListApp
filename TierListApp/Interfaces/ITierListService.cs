@@ -7,7 +7,8 @@ namespace TierListApp.Interfaces
     public interface ITierListService
     {
         void CreateTierList(TierListDTO tierListDTO, List<TierDTO> tiersDTO);
-        List<TierListDTO> GetTierLists();
+        List<TierList> GetTierLists();
         TierList? GetTierListInclude(int tierListId);
+        void DeleteTierList(TierList tierList);
     }
 }
