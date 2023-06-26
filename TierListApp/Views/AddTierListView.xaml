@@ -6,22 +6,23 @@
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:TierListApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="LightGray">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#060514">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="Create new tier list" VerticalAlignment="Center" FontSize="25"/>
+        <Label Content="Create new tier list" VerticalAlignment="Center" FontSize="25" Background="#031835"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Content="Name your tier list" VerticalAlignment="Center" FontSize="20"/>
-            <TextBox Text="{Binding TierListName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="5"/>
+            <TextBox Text="{Binding TierListName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" Margin="5" Background="#031835"/>
         </StackPanel>
         <StackPanel Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Background="#031835">
                 <Label Content="Create tiers" FontSize="20" VerticalAlignment="Center"/>
-                <Button Content="+" FontSize="30" Width="40" Background="Green" Command="{Binding AddNewTierCommand}"/>
+                <Button Content="+" FontSize="20" Width="30" Background="DarkGreen" Margin="5" Command="{Binding AddNewTierCommand}"/>
             </StackPanel>
             <ListView ItemsSource="{Binding ListOfTiers}" HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
@@ -34,13 +35,13 @@
                             <Grid.Background>
                                 <SolidColorBrush Color="{Binding TierColor, Mode=TwoWay}"/>
                             </Grid.Background>
-                            <TextBox Text="{Binding Name, Mode=TwoWay}" Width="40" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Name, Mode=TwoWay}" Width="40" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{Binding TierColor}"/>
                             <toolkit:ColorPicker Grid.Column="1" Margin="5 0 0 0" SelectedColor="{Binding TierColor, Mode=TwoWay}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Content="Create" FontSize="25" HorizontalAlignment="Left" Background="LightGreen" Margin="10" Command="{Binding CreateTierListCommand}"/>
+            <Button Content="Create" FontSize="25" HorizontalAlignment="Left" Background="DarkGreen" Margin="10" Command="{Binding CreateTierListCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

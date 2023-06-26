@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:TierListApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey }" Color="White"/>
     </Application.Resources>
 </Application>

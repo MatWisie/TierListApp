@@ -7,7 +7,9 @@
         xmlns:vms="clr-namespace:TierListApp.ViewModels"
         xmlns:views="clr-namespace:TierListApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Background="#060514"
+        >
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:AddTierListViewModel}">
@@ -21,30 +23,32 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid Background="#17103d">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label Content="Tier Lists" FontSize="20" Height="36"/>
-                <Button Content="+" Width="40" FontSize="20" Background="GreenYellow" Command="{Binding GoToAddCommand}"/>
+                <Button Content="+" Width="35" Margin="10" FontSize="20" Background="DarkGreen" Command="{Binding GoToAddCommand}"/>
             </StackPanel>
             <ItemsControl Grid.Row="1" ItemsSource="{Binding TierLists}" HorizontalContentAlignment="Stretch" x:Name="TierLists">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid TextElement.FontSize="15" Margin="5">
+                        <Grid TextElement.FontSize="15" Margin="5 0 5 0">
                             <Grid.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=TierLists, Path=DataContext.GoToTierListCommand}" CommandParameter="{Binding Id}"/>
                             </Grid.InputBindings>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{Binding Name}" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
-                            <Label Content="{Binding CreatedDate}" Grid.Column="1" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
-                            <Button Background="Red" Content="D" Grid.Column="2" Command="{Binding ElementName=TierLists, Path=DataContext.DeleteTierListCommand}" CommandParameter="{Binding}"/>
+                            <Rectangle Fill="#FB2576"/>
+                            <Label Content="{Binding Name}" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                            <Label Content="{Binding CreatedDate}" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                            <Button Background="#3F0071" Content="X" Grid.Column="3" FontSize="10" Width="20" Command="{Binding ElementName=TierLists, Path=DataContext.DeleteTierListCommand}" CommandParameter="{Binding}" Margin="4"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
