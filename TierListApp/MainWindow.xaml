@@ -36,6 +36,15 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid TextElement.FontSize="15" Margin="5 0 5 0">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#261b66"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
                             <Grid.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=TierLists, Path=DataContext.GoToTierListCommand}" CommandParameter="{Binding Id}"/>
                             </Grid.InputBindings>

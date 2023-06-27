@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TierListApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#060514">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding TierListName}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Content="Save" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Height="50" Background="ForestGreen" Command="{Binding SaveTierItemsCommand}"/>
+        <Button Content="Save" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="30" Background="DarkGreen" Command="{Binding SaveTierItemsCommand}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"/>
@@ -56,16 +57,17 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Button Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" FontSize="20" Command="{Binding DeleteItemCommand}"/>
-                <Image Grid.Row="1" Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
-                <TextBox Grid.Row="2" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="LightGray"/>
-            </Grid>
+            <Expander Style="{DynamicResource ExpanderStylePurple}" Grid.Column="1" ExpandDirection="Left" IsExpanded="{Binding ExpanderVisibility}" IsEnabled="{Binding ExpanderOnOff}" Margin="10 0 0 0" >
+                <Grid Background="#17103d">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
+                    <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="20" Background="DarkRed" FontSize="10" Command="{Binding DeleteItemCommand}"/>
+                    <TextBox Grid.Row="1" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="#383257" ToolTip="Note anything about item"/>
+                </Grid>
+            </Expander>
         </Grid>
 
         <Border Grid.Row="2" BorderBrush="DarkGray" BorderThickness="3">
