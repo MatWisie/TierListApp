@@ -7,7 +7,7 @@
         xmlns:vms="clr-namespace:TierListApp.ViewModels"
         xmlns:views="clr-namespace:TierListApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="TierApp" Height="450" Width="800"
         Background="#060514"
         >
     <Grid>
