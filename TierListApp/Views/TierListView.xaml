@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#060514">
+    <UserControl.Resources>
+        <BitmapImage x:Key="ErrorImage" UriSource="/Assets/ErrorImage.png"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -43,7 +46,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Image Source="{Binding Source}" Width="100" Height="100">
+                                                <Image Source="{Binding Source, FallbackValue={StaticResource ErrorImage}}" Width="100" Height="100" Margin="5">
                                                     <Image.InputBindings>
                                                         <MouseBinding Gesture="LeftClick" Command="{Binding ElementName=TiersControl, Path=DataContext.ChangeSelectedItemCommand}" CommandParameter="{Binding}"/>
                                                     </Image.InputBindings>
@@ -63,7 +66,7 @@
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Image Source="{Binding SelectedItem.Source}" Stretch="Fill"/>
+                    <Image Source="{Binding SelectedItem.Source, FallbackValue={StaticResource ErrorImage}}" Stretch="Fill"/>
                     <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="20" Background="DarkRed" FontSize="10" Command="{Binding DeleteItemCommand}"/>
                     <TextBox Grid.Row="1" Text="{Binding SelectedItem.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Background="#383257" ToolTip="Note anything about item" MaxHeight="150"/>
                 </Grid>
