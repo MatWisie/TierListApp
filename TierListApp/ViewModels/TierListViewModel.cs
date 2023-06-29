@@ -25,6 +25,12 @@ namespace TierListApp.ViewModels
         }
 
         [ObservableProperty]
+        private bool expanderVisibility = false;
+
+        [ObservableProperty]
+        private bool expanderOnOff = false;
+
+        [ObservableProperty]
         private int tierListId;
 
         [ObservableProperty]
@@ -57,6 +63,8 @@ namespace TierListApp.ViewModels
         private void ChangeSelectedItem(TierItem selectedItem)
         {
             SelectedItem = selectedItem;
+            ExpanderVisibility = true;
+            ExpanderOnOff = true;
         }
 
         [RelayCommand]
@@ -78,6 +86,9 @@ namespace TierListApp.ViewModels
         private void DeleteItem()
         {
             _tierItemService.DeleteItem(SelectedItem, Tiers, TierItems, itemsToDelete);
+            SelectedItem = null;
+            ExpanderVisibility = false;
+            ExpanderOnOff = false;
         }
 
         private void ReloadView(int tierListId)
