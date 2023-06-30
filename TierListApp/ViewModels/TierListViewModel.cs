@@ -79,6 +79,8 @@ namespace TierListApp.ViewModels
         {
             _tierItemService.SaveTierItems(Tiers, TierItems, itemsToDelete);
             SelectedItem = null;
+            ExpanderVisibility = false;
+            ExpanderOnOff = false;
             ReloadView(TierListId);
         }
 

@@ -44,7 +44,6 @@ namespace TierListApp
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<AddTierListViewModel>();
             services.AddTransient<TierListViewModel>();
-            
 
 
             return services.BuildServiceProvider();

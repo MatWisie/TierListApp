@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,13 +54,14 @@ namespace TierListApp.Service
             return _tierListRepository.GetTierListInclude(tierListId);
         }
 
-        public void DeleteTierList(TierList tierList)
+        public void DeleteTierList(TierList tierList, ObservableCollection<TierList> TierLists)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
             if(messageBoxResult == MessageBoxResult.Yes)
             {
                 _tierListRepository.DeleteTierList(tierList);
                 _tierListRepository.SaveChanges();
+                TierLists.Remove(tierList);
             }
         }
     }

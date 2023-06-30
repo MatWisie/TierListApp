@@ -72,8 +72,7 @@ namespace TierListApp.ViewModels
         [RelayCommand]
         private void DeleteTierList(TierList tierList)
         {
-            _tierListService.DeleteTierList(tierList);
-            TierLists.Remove(tierList);
+            _tierListService.DeleteTierList(tierList, TierLists);
             currentView = null;
         }
     }
