@@ -1,11 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using TierListApp.Data;
 using TierListApp.Interfaces;
@@ -39,6 +33,7 @@ namespace TierListApp
             services.AddTransient<ITierListService, TierListService>();
             services.AddTransient<ITierItemService, TierItemService>();
             services.AddTransient<ITierItemRepository, TierItemRepository>();
+            services.AddTransient<IImageService, ImageService>();
             services.AddDbContext<TierDbContext>();
 
             services.AddTransient<MainWindowViewModel>();

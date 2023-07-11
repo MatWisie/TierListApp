@@ -1,13 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TierListApp.Interfaces;
 using TierListApp.Models;
 
@@ -17,11 +12,13 @@ namespace TierListApp.ViewModels
     {
         private readonly ITierListService _tierListService;
         private readonly ITierItemService _tierItemService;
-        public TierListViewModel(ITierListService tierListService, ITierItemService tierItemService)
+        private readonly IImageService _imageService;
+        public TierListViewModel(ITierListService tierListService, ITierItemService tierItemService, IImageService imageService)
         {
             WeakReferenceMessenger.Default.Register<TierListIdMessage>(this);
             _tierListService = tierListService;
             _tierItemService = tierItemService;
+            _imageService=imageService;
         }
 
         [ObservableProperty]
@@ -50,9 +47,9 @@ namespace TierListApp.ViewModels
         private void AddItem()
         {
             List<string>? paths = _tierItemService.ChooseItem();
-            if(paths != null)
+            if (paths != null)
             {
-                foreach(var path in paths)
+                foreach (var path in paths)
                 {
                     TierItems.Add(new TierItem() { Note = "", Source = path, TierId = null, TierListId = TierListId });
                 }
@@ -70,7 +67,7 @@ namespace TierListApp.ViewModels
         [RelayCommand]
         private void PlaceItem(Tier? tier)
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
                 _tierItemService.ChangeItemPlace(tier, SelectedItem, Tiers, TierItems);
         }
 
@@ -91,6 +88,12 @@ namespace TierListApp.ViewModels
             SelectedItem = null;
             ExpanderVisibility = false;
             ExpanderOnOff = false;
+        }
+
+        [RelayCommand]
+        private void ImageOfTierList(object control)
+        {
+            _imageService.TakeImageOfControl(control);
         }
 
         private void ReloadView(int tierListId)
